@@ -23,7 +23,7 @@ Skip if you already done. Easiest way is to install [Hypriot Docker Image for Ra
 
 I hit minor error with Raspberry Pi Zero W but [this post](https://github.com/hypriot/blog/issues/60#issuecomment-351239790) solved.
 
-Simply after sticking micro SD card to your computer, run these commands which will download OS image, add user, setup wifi and burn image to SD card.
+Simply after sticking micro SD card to your computer, run these commands. You will download OS image, add user, setup wifi and burn image into card.
 
     curl -o user-data.yml https://gist.github.com/goughjt/9a7e9b66217bda54893cb1474fa0968e
     curl -o boot-config.txt https://gist.github.com/goughjt/b121832bf6371b69794c2ecb43310be1
