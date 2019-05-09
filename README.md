@@ -47,7 +47,10 @@ Then press Dash. Messages will be added like this.
     Possible dash hardware address detected: 11:22:33:44:55:66 Manufacturer: unknown Protocol: udp
     Possible dash hardware address detected: 11:22:33:44:55:66 Manufacturer: unknown Protocol: arp
 
-In this case, 11:22:33:44:55:66 is MAC address of your Dash.
+In this case, 11:22:33:44:55:66 is MAC address of your Dash. Remove rpi-node-dash-button to replace customed image.
+
+    docker stop rpi-node-dash-button
+    docker rm rpi-node-dash-button
 
 # Customize script
 
