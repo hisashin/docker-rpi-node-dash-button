@@ -21,16 +21,16 @@ As described [here](https://github.com/hortinstein/node-dash-button#first-time-d
 
 # Run Docker on Raspberry Pi
 
-Skip if you already done. Easiest way is to install [Hypriot Docker Image for Raspberry Pi](https://blog.hypriot.com/downloads/) with [flash](https://github.com/hypriot/flash).
+Install raspbian-stretch-lite
 
-I hit minor error with Raspberry Pi Zero W but [this post](https://github.com/hypriot/blog/issues/60#issuecomment-351239790) solved.
+    curl -sSL https://get.docker.com | sh
+    sudo usermod -aG docker pi
+    docker -v
+    sudo reboot
+    
+If Docker is not running, downgrade docker-ce as these articles ([English](https://dietpi.com/phpbb/viewtopic.php?f=11&t=5227&start=10) / [Japanese](https://qiita.com/kmatae/items/310213f8068ff28038d4)).
 
-Simply after sticking micro SD card to your computer, run these commands. You will download OS image, add user, setup wifi and burn image into card.
-
-    curl -o user-data.yml https://gist.github.com/goughjt/9a7e9b66217bda54893cb1474fa0968e
-    curl -o boot-config.txt https://gist.github.com/goughjt/b121832bf6371b69794c2ecb43310be1
-    vi user-data.yml (To change <like-this> sections like SSID)
-    flash --bootconf ./boot-config.txt --userdata ./user-data.yml --hostname <hostname> https://github.com/hypriot/image-builder-rpi/releases/download/v1.7.1/hypriotos-rpi-v1.7.1.img.zip
+    sudo apt-get install docker-ce=18.06.1~ce~3-0~raspbian
 
 # Run This Image
 
@@ -51,25 +51,27 @@ In this case, 11:22:33:44:55:66 is MAC address of your Dash.
 
 # Customize script
 
-    vi /dash.js
+    vi /custom/dash.js
  
     dash_button('aa:bb:cc:dd:ee:ff', null, null, 'all').on('detected', function() {
     //  https_get('www.google.com', '/foo/bar');	// for example to GET https://www.google.com/foo/bar
     //  http_get('www.google.com', '/foo/bar');	// for example to GET http://www.google.com/foo/bar
     });
+
 Edit around this section as you want with the MAC address you got.
 
     dash_button('11:22:33:44:55:66', null, null, 'all').on('detected', function() {
       https_get('maker.ifttt.com', '/trigger/{your IFTTT event}/with/key/{your IFTTT secret key}');
     });
+
 If you want to call IFTTT webhook, it will be like this.
 
-# Restart
+# Build and Run
 
-    forever stop /dash.js
-    /start.sh
+    docker build -t <your-name>/rpi-node-dash-button-custom:latest ./custom
+    docker run -it --net host --name rpi-node-dash-button hisashin/rpi-node-dash-button-custom:latest -d
 
-Ctrl+P, Ctrl+Q to escape. To autostart, add following line to /etc/rc.local
+Ctrl+P, Ctrl+Q to escape if you prefer foreground without -d. To autostart, add following line to /etc/rc.local
 
     docker start rpi-node-dash-button
 
