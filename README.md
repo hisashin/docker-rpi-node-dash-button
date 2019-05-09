@@ -54,7 +54,7 @@ In this case, 11:22:33:44:55:66 is MAC address of your Dash. Remove rpi-node-das
 
 # Customize script
 
-    vi /custom/dash.js
+    vi dash.js
  
     dash_button('aa:bb:cc:dd:ee:ff', null, null, 'all').on('detected', function() {
     //  https_get('www.google.com', '/foo/bar');	// for example to GET https://www.google.com/foo/bar
