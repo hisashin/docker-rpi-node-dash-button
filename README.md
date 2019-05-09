@@ -72,9 +72,9 @@ If you want to call IFTTT webhook, it will be like this.
 # Build and Run
 
     docker build -t <your-name>/rpi-node-dash-button-custom:latest ./custom
-    docker run -it --net host --name rpi-node-dash-button <your-name>/rpi-node-dash-button-custom:latest -d
+    docker run -it --net host --name rpi-node-dash-button <your-name>/rpi-node-dash-button-custom:latest
 
-Ctrl+P, Ctrl+Q to escape if you prefer foreground without -d. To autostart, add following line to /etc/rc.local
+Ctrl+P, Ctrl+Q to escape. To autostart, add following line to /etc/rc.local
 
     docker start rpi-node-dash-button
 
